@@ -2,10 +2,10 @@ VERSION := 0.1.0
 
 .PHONY: build
 build: 
-	docker build -t rummage:${VERSION} .
+	docker build -q -t rummage:${VERSION} .
 
 .PHONY: run
-run: 
+run: build
 	docker run rummage:${VERSION}
 
 .PHONY: local
@@ -14,8 +14,8 @@ local:
 
 .PHONY: deb
 deb: 
-	bash ./scripts/build-deb.sh ${VERSION}
 	docker build -t rummage:${VERSION} --output type=local,dest=./dist/rummage-${VERSION}/usr/local/bin/ .
+	bash ./scripts/build-deb.sh ${VERSION}
 
 .PHONY: local-install
 local-install: deb
