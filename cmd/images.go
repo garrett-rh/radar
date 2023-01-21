@@ -1,18 +1,15 @@
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
+	"sonar/pkg"
+	"sonar/register"
 
 	"github.com/spf13/cobra"
 )
-
-type repos struct {
-	Repository []string `json:"repositories"`
-}
 
 var imageCmd = &cobra.Command{
 	Use:     "images [flags]",
@@ -22,7 +19,9 @@ var imageCmd = &cobra.Command{
 If no image is specified, then this will return all images on the repository.
 If an image is specified, that image will be returned along with any tags.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		resp, err := http.Get(Registry + "/v2/_catalog")
+		Registry := register.GetRegistry()
+
+		resp, err := http.Get(Registry.Registry + "/v2/_catalog")
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -31,15 +30,12 @@ If an image is specified, that image will be returned along with any tags.`,
 			log.Fatalln(err)
 		}
 		if len(args) == 0 {
-			fmt.Println(string(body))
+			fmt.Printf("%s", string(body))
 		} else {
 			image := args[0]
-			var decoded repos
-			fmt.Println(string(body))
-			if err := json.Unmarshal(body, &decoded); err != nil {
-				log.Fatalln(err)
-			}
-			resp, err := http.Get(Registry + "/v2/" + image + "/tags/list")
+			Registry.Image = image
+
+			resp, err := http.Get(pkg.UrlBuilder("tags"))
 			if err != nil {
 				log.Fatalln(err)
 			}
@@ -48,7 +44,7 @@ If an image is specified, that image will be returned along with any tags.`,
 				log.Fatalln(err)
 			}
 
-			fmt.Println(string(body))
+			fmt.Printf("%s", string(body))
 		}
 	},
 }

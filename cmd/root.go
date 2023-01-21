@@ -5,26 +5,26 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sonar/register"
 
 	"github.com/spf13/cobra"
 )
 
-var (
-	TlsNoVerify bool
-	Registry    string
-)
 var rootCmd = &cobra.Command{
-	Use:   "rummage --registry [Registry URL] [command]",
-	Short: "Rummage is a tool used to navigate docker registries",
-	Long:  `Rummage is an easy way to enumerate a docker registry without direct knowledge of the API.`,
+	Use:     "sonar --registry [Registry URL] [command]",
+	Short:   "Sonar is a tool used to navigate docker registries",
+	Long:    `sonar is an easy way to enumerate a docker registry without direct knowledge of the API.`,
+	Example: "sonar --registry https://localhost -k images",
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		if TlsNoVerify {
+		Registry := register.GetRegistry()
+		if Registry.TlsNoVerify {
 			http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
+		Registry := register.GetRegistry()
 
-		resp, err := http.Get(Registry + "/v2")
+		resp, err := http.Get(Registry.Registry + "/v2")
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -46,8 +46,9 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().BoolVarP(&TlsNoVerify, "insecure", "k", false, "Set this flag to true to decline verification on TLS certs (default false)")
-	rootCmd.PersistentFlags().StringVarP(&Registry, "registry", "r", "", "Describes the location of the docker registry")
+	Registry := register.GetRegistry()
+	rootCmd.PersistentFlags().BoolVarP(&Registry.TlsNoVerify, "insecure", "k", false, "Set this flag to true to decline verification on TLS certs (default false)")
+	rootCmd.PersistentFlags().StringVarP(&Registry.Registry, "registry", "r", "", "Describes the location of the docker registry")
 	if err := rootCmd.MarkPersistentFlagRequired("registry"); err != nil {
 		log.Fatalln(err)
 	}

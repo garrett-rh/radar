@@ -1,4 +1,4 @@
-module rummage
+module sonar
 
 go 1.19
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"rummage/cmd"
+	"sonar/cmd"
 )
 
 func main() {
