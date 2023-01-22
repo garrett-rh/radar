@@ -7,7 +7,7 @@ type RequestBuilder interface {
 	getRequest() Request
 }
 
-// Decides which type of object will be built
+// Decides which type of object will be built based on a string passed in by the caller
 func GetRequestBuilder(buildType string) RequestBuilder {
 	if buildType == "base" {
 		return newBaseBuilder()

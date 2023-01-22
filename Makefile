@@ -1,7 +1,7 @@
 VERSION := 0.2.0
 
 .PHONY: build
-build: 
+build:
 	docker build -q -t sonar:${VERSION} .
 
 .PHONY: run
@@ -9,11 +9,11 @@ run: build
 	docker run sonar:${VERSION}
 
 .PHONY: local
-local: 
+local:
 	docker build -t sonar:${VERSION} --output type=local,dest=dist .
 
 .PHONY: deb
-deb: 
+deb:
 	docker build -t sonar:${VERSION} --output type=local,dest=./dist/sonar-${VERSION}/usr/local/bin/ .
 	bash ./scripts/build-deb.sh ${VERSION}
 
@@ -26,6 +26,6 @@ uninstall:
 	sudo apt remove sonar
 
 .PHONY: clean
-clean: 
+clean:
 	docker image rm -f sonar:${VERSION}
 	rm -r dist/

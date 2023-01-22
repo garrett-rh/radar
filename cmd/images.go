@@ -15,7 +15,7 @@ var imageCmd = &cobra.Command{
 	Use:     "images [flags]",
 	Aliases: []string{"image"},
 	Short:   "Search a docker registry for image repositories",
-	Long: `Search a docker registry for image repositories. 
+	Long: `Search a docker registry for image repositories.
 If no image is specified, then this will return all images on the repository.
 If an image is specified, that image will be returned along with any tags.`,
 	// Calls imageRunner and passes args through
