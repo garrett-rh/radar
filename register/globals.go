@@ -19,7 +19,3 @@ func GetRegistry() *register {
 
 	return Registry
 }
-
-func SetRegistry() {
-
-}

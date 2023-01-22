@@ -6,23 +6,23 @@ function main () {
     mkdir -p dist
     cd dist
 
-	mkdir -p rummage-${1} rummage-${1}/DEBIAN rummage-${1}/usr/local/bin
+	mkdir -p sonar-${1} sonar-${1}/DEBIAN sonar-${1}/usr/local/bin
 
-    cd rummage-${1}
+    cd sonar-${1}
 
 	cat << EOF > DEBIAN/control
-Source: rummage
+Source: sonar
 Maintainer: garretth@tuta.io
 Section: misc
 Priority: optional
-Package: rummage
+Package: sonar
 Version: ${1}
 Architecture: all
 Description: Tool to help navigate docker registries
 EOF
 
     cd ..
-    dpkg-deb --build rummage-${1}
+    dpkg-deb --build sonar-${1}
 
     return 0
 }
