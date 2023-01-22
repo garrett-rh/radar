@@ -23,7 +23,7 @@ var rootCmd = &cobra.Command{
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		rootRunner(args)
+		rootRunner()
 	},
 }
 
@@ -43,7 +43,7 @@ func init() {
 	}
 }
 
-func rootRunner(args []string) {
+func rootRunner() {
 	registry := register.GetRegistry()
 	request := pkg.GetRequestBuilder("base")
 	director := pkg.NewDirector(request)
@@ -64,6 +64,6 @@ func rootRunner(args []string) {
 		log.Println("Connection established!")
 	}
 	if resp.StatusCode == http.StatusUnauthorized {
-		log.Println("Registry returned status code 401 Unauthorized. Login Required")
+		log.Fatalln("Registry returned status code 401 Unauthorized. Login Required")
 	}
 }
