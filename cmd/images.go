@@ -18,6 +18,8 @@ var imageCmd = &cobra.Command{
 	Long: `Search a docker registry for image repositories. 
 If no image is specified, then this will return all images on the repository.
 If an image is specified, that image will be returned along with any tags.`,
+	// Calls imageRunner and passes args through
+	// All logic is in a separate function for ease of testing
 	Run: func(cmd *cobra.Command, args []string) {
 		imageRunner(args)
 	},
@@ -27,6 +29,10 @@ func init() {
 	rootCmd.AddCommand(imageCmd)
 }
 
+// imageRunner takes in the args passed in from the parent command `image(s)`
+// If an argument (an image name) is passed in, then then specific info on that image is pulled
+// If no arguments are passed in, then the entire image catalog is pulled down from the registry
+// Currently, all args after arg[0] are ignored
 func imageRunner(args []string) {
 	var request pkg.RequestBuilder
 	client := http.Client{}
