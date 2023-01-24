@@ -18,7 +18,7 @@ func (d *Director) SetBuilder(r RequestBuilder) {
 	d.builder = r
 }
 
-//Builds out request & returns it to the caller
+// Builds out request & returns it to the caller
 func (d *Director) BuildRequest() Request {
 
 	d.builder.setMethodType()
