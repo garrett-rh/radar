@@ -5,18 +5,18 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"sonar/pkg"
-	"sonar/register"
+	"radar/pkg"
+	"radar/register"
 
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
-	Use:     "sonar --registry [Registry URL] [command]",
-	Short:   "Sonar is a tool used to navigate docker registries",
-	Long:    `sonar is an easy way to enumerate a docker registry without direct knowledge of the API.`,
-	Example: "sonar --registry https://localhost -k images",
-	// Runs as a pre-req to every action using sonar
+	Use:     "radar --registry [Registry URL] [command]",
+	Short:   "radar is a tool used to navigate docker registries",
+	Long:    `radar is an easy way to enumerate a docker registry without direct knowledge of the API.`,
+	Example: "radar --registry https://localhost -k images",
+	// Runs as a pre-req to every action using radar
 	// Reads from the global register to check if the -k or --insecure flag was passed in
 	// If it was, skips TLS cert verification for all requests.
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {

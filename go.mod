@@ -1,4 +1,4 @@
-module sonar
+module radar
 
 go 1.19
 

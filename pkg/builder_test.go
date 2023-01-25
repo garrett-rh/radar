@@ -1,7 +1,7 @@
 package pkg
 
 import (
-	"sonar/register"
+	"radar/register"
 	"testing"
 )
 

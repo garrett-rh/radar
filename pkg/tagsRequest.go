@@ -1,6 +1,6 @@
 package pkg
 
-import "sonar/register"
+import "radar/register"
 
 type TagRequest struct {
 	Method string

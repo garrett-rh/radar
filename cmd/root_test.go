@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
-	"sonar/register"
+	"radar/register"
 	"testing"
 )
 

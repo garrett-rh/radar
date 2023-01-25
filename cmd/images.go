@@ -5,8 +5,8 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"sonar/pkg"
-	"sonar/register"
+	"radar/pkg"
+	"radar/register"
 
 	"github.com/spf13/cobra"
 )

@@ -6,7 +6,7 @@ type register struct {
 	TlsNoVerify bool
 	// URI of the registry
 	Registry string
-	// Image name passed in via sonar image $IMAGE_NAME command
+	// Image name passed in via radar image $IMAGE_NAME command
 	Image string
 	// Not yet implemented
 	Reference string

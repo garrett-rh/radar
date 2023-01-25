@@ -6,7 +6,7 @@ import (
 
 func TestGetRegistry(t *testing.T) {
 	registry := GetRegistry()
-	registry.Image = "sonar"
+	registry.Image = "radar"
 
 	newRegistry := GetRegistry()
 

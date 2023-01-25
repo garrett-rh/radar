@@ -6,23 +6,23 @@ function main () {
     mkdir -p dist
     cd dist
 
-	mkdir -p sonar-${1} sonar-${1}/DEBIAN sonar-${1}/usr/local/bin
+	mkdir -p radar-${1} radar-${1}/DEBIAN radar-${1}/usr/local/bin
 
-    cd sonar-${1}
+    cd radar-${1}
 
 	cat << EOF > DEBIAN/control
-Source: sonar
+Source: radar
 Maintainer: garretth@tuta.io
 Section: misc
 Priority: optional
-Package: sonar
+Package: radar
 Version: ${1}
 Architecture: all
 Description: Tool to help navigate docker registries
 EOF
 
     cd ..
-    dpkg-deb --build sonar-${1}
+    dpkg-deb --build radar-${1}
 
     return 0
 }

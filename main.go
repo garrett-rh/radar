@@ -1,7 +1,7 @@
 package main
 
 import (
-	"sonar/cmd"
+	"radar/cmd"
 )
 
 func main() {
