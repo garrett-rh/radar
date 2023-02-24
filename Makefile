@@ -1,6 +1,6 @@
 export DOCKER_BUILDKIT=1
 
-VERSION := 0.2.1
+VERSION := 0.3.0
 PROJ_NAME := radar
 
 .PHONY: build
@@ -9,12 +9,12 @@ build:
 
 .PHONY: test
 test:
-	docker build --target test -t ${PROJ_NAME}:${VERSION}-test .
-	docker run ${PROJ_NAME}:${VERSION}-tests go test ./...
+	docker build --target build -t ${PROJ_NAME}:${VERSION} .
+	docker run ${PROJ_NAME}:${VERSION} go test ./...
 
 .PHONY: run
 run: build
-	docker run --network host ${PROJ_NAME}:${VERSION}
+	docker run ${PROJ_NAME}:${VERSION}
 
 .PHONY: local
 local:
@@ -23,7 +23,7 @@ local:
 .PHONY: deb
 deb:
 	docker build -t ${PROJ_NAME}:${VERSION} --output type=local,dest=./dist/${PROJ_NAME}-${VERSION}/usr/local/bin/ .
-	bash ./scripts/build-deb.sh ${VERSION}
+	./scripts/build-deb.sh ${VERSION}
 
 .PHONY: local-install
 local-install: deb
